@@ -1,0 +1,10 @@
+__pycache__
+.vscode
+sglobbylink-discord.py
+bot.py
+info.txt
+public_profile_instructions.jpg
+steam_api_key.txt
+steam_ids.txt
+steam_url_instructions.jpg
+tests.py
