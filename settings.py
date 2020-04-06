@@ -4,10 +4,10 @@
 # IMPORTANT: You must enter these or the bot won't work!
 
 # IMPORTANT: get your Discord bot token from https://discordapp.com/developers/applications/me
-discordBotTokenIMPORTANT = "DISCORD_TOKEN_HERE"
+discordBotTokenIMPORTANT = "PASTE_DISCORD_BOT_TOKEN_HERE"
 
 # IMPORTANT: get your Steam API key from https://steamcommunity.com/dev/apikey
-steamApiKeyIMPORTANT = "STEAM_API_KEY_HERE"
+steamApiKeyIMPORTANT = "PASTE_STEAM_API_KEY_HERE"
 
 
 ######################################

@@ -1,4 +1,11 @@
-# IMPORTANT: You must enter your Discord bot token and Steam API key in settings_sglobbylink.py or the bot won't work!
+# steam_lobby.py
+# Refactor to the newer version of discord.py v1.0 and python 3.8.2 by @Jean-Carlo
+# project page: https://github.com/reylobo/snk-bot
+#
+# Based on sglobbylink-discord.py by Mr Peck (2018-2019)
+# project page: https://github.com/itsmrpeck/sglobbylink-discord.py
+
+# IMPORTANT: You must enter your Discord bot token and Steam API key in settings.py or the bot won't work!
 
 import discord
 import asyncio
@@ -17,11 +24,11 @@ if not "imagePostingCooldownSeconds" in locals():
     imagePostingCooldownSeconds = 60 * 10
 
 if discordBotTokenIMPORTANT == "PASTE_DISCORD_BOT_TOKEN_HERE":
-    print("ERROR: Discord bot token has not been set. Get one from https://discordapp.com/developers/applications/me and paste it into 'discordBotTokenIMPORTANT' in settings_sglobbylink.py")
+    print("ERROR: Discord bot token has not been set. Get one from https://discordapp.com/developers/applications/me and paste it into 'discordBotTokenIMPORTANT' in settings.py")
     quit()
 
 if steamApiKeyIMPORTANT == "PASTE_STEAM_API_KEY_HERE":
-    print("ERROR: Steam Web API key has not been set. Get one from https://steamcommunity.com/dev/apikey and paste it into 'steamApiKeyIMPORTANT' in settings_sglobbylink.py")
+    print("ERROR: Steam Web API key has not been set. Get one from https://steamcommunity.com/dev/apikey and paste it into 'steamApiKeyIMPORTANT' in settings.py")
     quit()
 
 
@@ -75,6 +82,7 @@ async def save_steam_ids():
         with open(steamIdFileName, 'w+') as f:
             for steamId in steamIdTable.keys():
                 f.write(steamId + " " + steamIdTable[steamId] + "\n")
+                print('Steam ID saved:' + steamIdTable[steamId])
     except:
         pass
 
@@ -93,7 +101,8 @@ async def load_steam_ids():
     except:
         pass
 
-def increment_request_count(userIdStr): # returns whether or not the user has hit their daily request limit
+# returns whether or not the user has hit their daily request limit
+def increment_request_count(userIdStr):
     global todaysRequestCounts
     global todaysTotalRequestCount
     global maxDailyRequestsPerUser
@@ -176,7 +185,7 @@ async def async_get_json(url):
 async def on_ready():
     await load_steam_ids()
     client.loop.create_task(clear_request_counts_once_per_day())
-    print("LOADED: sglobbylink-discord.py v" + versionNumber + " by Mr Peck.")
+    print("LOADED: steam_lobby.py v" + versionNumber)
 
 @client.event
 async def on_message(message):
@@ -222,8 +231,8 @@ async def on_message(message):
 
     # actually execute the command
     if botCmd == LobbyBotCommand.HELP:
-        await message.channel.send("Hello, I am sglobbylink-discord.py v" + versionNumber +\
-            "by Mr Peck.\n\nCommands:\n- `!lobby`: posts the link to your current Steam lobby.\n-\
+        await message.channel.send("Hello, I am steam lobby fetcher v" + versionNumber +\
+            "\n\nCommands:\n- `!lobby`: posts the link to your current Steam lobby.\n-\
             `!steamid`: tells the bot what your Steam profile is. You can " + get_steam_id_instructions())
         if check_if_steam_url_image_can_be_posted_and_update_timestamp_if_true():
             await message.channel.send('', file = discord.File("steam_url_instructions.jpg"))
@@ -287,7 +296,7 @@ async def on_message(message):
                 steamIdUrl = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + steamApiKeyIMPORTANT + "&vanityurl=" + idStr
                 contents = await async_get_json(steamIdUrl)
                 if contents:
-                    data = json.loads(contents)
+                                        data = json.loads(contents)
                     if data["response"] is None:
                         await message.channel.send("SteamAPI: ResolveVanityURL() failed for " + message.author.name + ". Is the Steam Web API down?")
                         return
