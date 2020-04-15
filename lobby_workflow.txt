@@ -1,0 +1,32 @@
+workflow of the bot:
+  1 bot is gonna find if a specific category has been built with
+      the following name attached to it: MATCHMAKING
+   1.1 if not, is gonna build it, and ask if you wanna attach another word to the category 
+    1.1.1 if yes, ask for it and add it. Then move to Step 2.  
+    1.1.2 if not, then move to Step 2.
+   1.2 if it is already built, then is gonna move to Step 2
+
+  2 bot is gonna find if a specific named channel has been built; matchmaking-chat
+       and matchmaking-steam
+      2.1 if not, it's gonna build them under the matchmaking category
+          and a basic message template with instructions on how to use the bot 
+          is gonna be posted on matchmaking-steam. 
+          And a region bulletin board too.
+      2.2 if yes, is gonna check if a predefined message is already built on matchmaking-steam
+       2.2.1 if not: it's gonna built the basic message template.
+       2.2.1 if yes: it's gonnna check that is the same. If not, is gonna erase it and 
+              put the predefined one.
+
+  3 bot is gonna work only on channels with matchmaking- word attached to them.
+
+  4 bot is gonna listen if a !match command has been typed on matchmaking-chat.
+      4.1 if yes, ask you if you wanna attach a message
+           4.1.1 if not, is gonna add a pre-formated message and move to Step 4.2
+           4.1.2 if yes, is gonna register your message and move to Step 4.2
+      4.2 Move your request message to the bulletin board on matchmaking-steam
+  
+  5 bot is gonna listen if !remove has been typed.
+      5.1 if not, stops listening.
+      5.2 if yes, it's gonna remove the user !matchmaking request from the queue
+          and bulletin board.
+

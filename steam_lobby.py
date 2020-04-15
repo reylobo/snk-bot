@@ -49,6 +49,7 @@ todaysRequestCounts = {}
 
 todaysTotalRequestCount = 0
 
+#TODO: check how this works
 requestCountsLock = threading.RLock()
 
 lastPublicProfileImagePostedTimestamp = 0
@@ -56,6 +57,7 @@ lastSteamURLImagePostedTimestamp = 0
 
 client = discord.Client()
 
+#TODO: check how this works
 aioLoop = asyncio.get_event_loop()  
 aioClient = aiohttp.ClientSession(loop=aioLoop)
 
@@ -77,6 +79,7 @@ def get_steam_id_instructions():
     else:
         return steamIdInstructionsPartialURLAllowed
 
+#TODO: check why this ain't working
 async def save_steam_ids():
     try:
         with open(steamIdFileName, 'w+') as f:
@@ -296,7 +299,8 @@ async def on_message(message):
                 steamIdUrl = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + steamApiKeyIMPORTANT + "&vanityurl=" + idStr
                 contents = await async_get_json(steamIdUrl)
                 if contents:
-                                        data = json.loads(contents)
+                    #TODO: check the content of the json
+                    data = json.loads(contents)
                     if data["response"] is None:
                         await message.channel.send("SteamAPI: ResolveVanityURL() failed for " + message.author.name + ". Is the Steam Web API down?")
                         return
